@@ -41,16 +41,16 @@ def test_get_rpc_creds():
         assert key in creds
     assert creds.get('user') == 'wantrpc'
     assert creds.get('password') == 'EwJeV3fZTyTVozdECF627BkBMnNDwQaVLakG3A4wXYyk'
-    assert creds.get('port') == 29241
+    assert creds.get('port') == 76761
 
-    want_config = want_conf(rpcpassword='s00pers33kr1t', rpcport=8000)
+    want_config = want_conf(rpcpassword='s00pers33kr1t', rpcport=76761)
     creds = WantConfig.get_rpc_creds(want_config, 'testnet')
 
     for key in ('user', 'password', 'port'):
         assert key in creds
     assert creds.get('user') == 'wantrpc'
     assert creds.get('password') == 's00pers33kr1t'
-    assert creds.get('port') == 8000
+    assert creds.get('port') == 76761
 
     no_port_specified = re.sub('\nrpcport=.*?\n', '\n', want_conf(), re.M)
     creds = WantConfig.get_rpc_creds(no_port_specified, 'testnet')
