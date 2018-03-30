@@ -6,13 +6,13 @@ os.environ['SENTINEL_CONFIG'] = os.path.normpath(os.path.join(os.path.dirname(__
 os.environ['SENTINEL_ENV'] = 'test'
 sys.path.append(os.path.normpath(os.path.join(os.path.dirname(__file__), '../../lib')))
 import config
-from dash_config import DashConfig
+from want_config import WantConfig
 
 
 @pytest.fixture
-def dash_conf(**kwargs):
+def want_conf(**kwargs):
     defaults = {
-        'rpcuser': 'dashrpc',
+        'rpcuser': 'wantrpc',
         'rpcpassword': 'EwJeV3fZTyTVozdECF627BkBMnNDwQaVLakG3A4wXYyk',
         'rpcport': 29241,
     }
@@ -34,35 +34,35 @@ rpcport={rpcport}
 
 
 def test_get_rpc_creds():
-    dash_config = dash_conf()
-    creds = DashConfig.get_rpc_creds(dash_config, 'testnet')
+    want_config = want_conf()
+    creds = WantConfig.get_rpc_creds(want_config, 'testnet')
 
     for key in ('user', 'password', 'port'):
         assert key in creds
-    assert creds.get('user') == 'dashrpc'
+    assert creds.get('user') == 'wantrpc'
     assert creds.get('password') == 'EwJeV3fZTyTVozdECF627BkBMnNDwQaVLakG3A4wXYyk'
     assert creds.get('port') == 29241
 
-    dash_config = dash_conf(rpcpassword='s00pers33kr1t', rpcport=8000)
-    creds = DashConfig.get_rpc_creds(dash_config, 'testnet')
+    want_config = want_conf(rpcpassword='s00pers33kr1t', rpcport=8000)
+    creds = WantConfig.get_rpc_creds(want_config, 'testnet')
 
     for key in ('user', 'password', 'port'):
         assert key in creds
-    assert creds.get('user') == 'dashrpc'
+    assert creds.get('user') == 'wantrpc'
     assert creds.get('password') == 's00pers33kr1t'
     assert creds.get('port') == 8000
 
-    no_port_specified = re.sub('\nrpcport=.*?\n', '\n', dash_conf(), re.M)
-    creds = DashConfig.get_rpc_creds(no_port_specified, 'testnet')
+    no_port_specified = re.sub('\nrpcport=.*?\n', '\n', want_conf(), re.M)
+    creds = WantConfig.get_rpc_creds(no_port_specified, 'testnet')
 
     for key in ('user', 'password', 'port'):
         assert key in creds
-    assert creds.get('user') == 'dashrpc'
+    assert creds.get('user') == 'wantrpc'
     assert creds.get('password') == 'EwJeV3fZTyTVozdECF627BkBMnNDwQaVLakG3A4wXYyk'
-    assert creds.get('port') == 19998
+    assert creds.get('port') == 76761
 
 
-# ensure dash network (mainnet, testnet) matches that specified in config
-# requires running dashd on whatever port specified...
+# ensure want network (mainnet, testnet) matches that specified in config
+# requires running wantd on whatever port specified...
 #
-# This is more of a dashd/jsonrpc test than a config test...
+# This is more of a wantd/jsonrpc test than a config test...
