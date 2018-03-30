@@ -43,7 +43,7 @@ Set up a crontab entry to call Sentinel every minute:
 
 In the crontab editor, add the lines below, replacing '/home/YOURUSERNAME/sentinel' to the path where you cloned sentinel to:
 
-    * * * * * cd /home/YOURUSERNAME/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1
+    * * * * * cd /root/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1
 
 ### 4. Test the Configuration
 
@@ -58,6 +58,12 @@ With all tests passing and crontab setup, Sentinel will stay in sync with wantd 
 An alternative (non-default) path to the `want.conf` file can be specified in `sentinel.conf`:
 
     want_conf=/path/to/want.conf
+
+## want.conf
+
+      ...
+      rpcport=11225
+      ...
 
 ## Troubleshooting
 
