@@ -34,7 +34,7 @@ class WantConfig():
         creds = {key: value for (key, value) in match}
 
         # standard Want defaults...
-        default_port = 76761 if (network == 'mainnet') else 76761
+        default_port = 76761 if (network == 'mainnet') else 76762
 
         # use default port for network if not specified in want.conf
         if not ('port' in creds):
